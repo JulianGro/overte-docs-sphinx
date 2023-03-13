@@ -65,10 +65,10 @@ git clone https://github.com/overte-org/overte-docs-sphinx.git
 #### Build the documentation
 
 ```bash
-.venv/bin/venv-run make --directory=docs html
+.venv/bin/venv-run make html
 ```
 Keep in mind that Sphinx will not rebuild files that haven't been changed, and therefore not throw warnings about those files.
-Run `.venv/bin/venv-run make SPHINXOPTS="-a" --directory=docs html` instead if you want to regenerate everything.
+Run `.venv/bin/venv-run make SPHINXOPTS="-a" html` instead if you want to regenerate everything.
 The HTML output will be in `build\html`. Open `home.html` in a browser to view the docs.
 
 
@@ -77,18 +77,18 @@ The HTML output will be in `build\html`. Open `home.html` in a browser to view t
 To compile a different language you need an additional set of commands:
 1. Create gettext files
     ```bash
-    .venv/bin/venv-run make --directory=docs gettext
+    .venv/bin/venv-run make gettext
     ```
 
 2. Create/update to `.po` translation files
     Replace `xX` with your [language code](https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-language)
     ```bash
-    .venv/bin/sphinx-intl update -p docs -l xX
+    .venv/bin/sphinx-intl update -p build/gettext -d source/locales -l xX
     ```
 
 3. Build the selected language
     ```bash
-    .venv/bin/venv-run make SPHINXOPTS="-Dlanguage=xX" --directory=docs html
+    .venv/bin/venv-run make SPHINXOPTS="-Dlanguage=xX" html
     ```
 
 
@@ -136,8 +136,8 @@ New languages need to be manually added in a number of locations, so the users c
 The locations include:
 - .github/workflows/master_build.yml
 - .github/workflows/master_warnings.yml
-- docs/source/home.rst
-- docs/source/_templates/versions.html
+- source/home.rst
+- source/_templates/versions.html
 - https://readthedocs.org/projects/overte-docs/
 
 
